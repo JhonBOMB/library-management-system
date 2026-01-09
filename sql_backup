@@ -1,0 +1,45 @@
+-- 修复图书管理菜单的乱码问题
+-- 此脚本用于将数据库中因编码问题导致的乱码菜单名称修正为正确的中文
+
+-- 修复一级菜单
+UPDATE sys_menu SET menu_name = '图书管理' WHERE menu_name LIKE '%鍥句功绠＄悊%' AND parent_id = 0;
+
+-- 修复二级菜单
+UPDATE sys_menu SET menu_name = '图书分类' WHERE menu_name LIKE '%鍥句功鍒嗙被%';
+UPDATE sys_menu SET menu_name = '图书管理' WHERE menu_name LIKE '%鍥句功绠＄悊%' AND parent_id != 0;
+UPDATE sys_menu SET menu_name = '读者管理' WHERE menu_name LIKE '%璇昏%';
+UPDATE sys_menu SET menu_name = '借阅管理' WHERE menu_name LIKE '%鍊熼槄%';
+
+-- 修复图书分类按钮权限名称
+UPDATE sys_menu SET menu_name = '图书分类查询' WHERE perms = 'library:category:query';
+UPDATE sys_menu SET menu_name = '图书分类新增' WHERE perms = 'library:category:add';
+UPDATE sys_menu SET menu_name = '图书分类修改' WHERE perms = 'library:category:edit';
+UPDATE sys_menu SET menu_name = '图书分类删除' WHERE perms = 'library:category:remove';
+UPDATE sys_menu SET menu_name = '图书分类导出' WHERE perms = 'library:category:export';
+
+-- 修复图书管理按钮权限名称
+UPDATE sys_menu SET menu_name = '图书查询' WHERE perms = 'library:book:query';
+UPDATE sys_menu SET menu_name = '图书新增' WHERE perms = 'library:book:add';
+UPDATE sys_menu SET menu_name = '图书修改' WHERE perms = 'library:book:edit';
+UPDATE sys_menu SET menu_name = '图书删除' WHERE perms = 'library:book:remove';
+UPDATE sys_menu SET menu_name = '图书导出' WHERE perms = 'library:book:export';
+
+-- 修复读者管理按钮权限名称
+UPDATE sys_menu SET menu_name = '读者查询' WHERE perms = 'library:reader:query';
+UPDATE sys_menu SET menu_name = '读者新增' WHERE perms = 'library:reader:add';
+UPDATE sys_menu SET menu_name = '读者修改' WHERE perms = 'library:reader:edit';
+UPDATE sys_menu SET menu_name = '读者删除' WHERE perms = 'library:reader:remove';
+UPDATE sys_menu SET menu_name = '读者导出' WHERE perms = 'library:reader:export';
+
+-- 修复借阅管理按钮权限名称
+UPDATE sys_menu SET menu_name = '借阅查询' WHERE perms = 'library:borrow:query';
+UPDATE sys_menu SET menu_name = '借阅新增' WHERE perms = 'library:borrow:add';
+UPDATE sys_menu SET menu_name = '借阅修改' WHERE perms = 'library:borrow:edit';
+UPDATE sys_menu SET menu_name = '借阅删除' WHERE perms = 'library:borrow:remove';
+UPDATE sys_menu SET menu_name = '借阅导出' WHERE perms = 'library:borrow:export';
+UPDATE sys_menu SET menu_name = '借阅归还' WHERE perms = 'library:borrow:return';
+
+-- 查询修复结果
+SELECT menu_id, menu_name, parent_id, path, perms FROM sys_menu 
+WHERE menu_name LIKE '%图书%' OR menu_name LIKE '%读者%' OR menu_name LIKE '%借阅%'
+ORDER BY menu_id;

@@ -1,0 +1,16 @@
+[:] Testing: Register User (jwtTest)
+    Registered successfully. Info: ????
+    [PASS] Register User (jwtTest)
+----------------------------------------
+[:] Testing: Login and Retrieve Token
+    Token Received: eyJhbGciOiJIUzUxMiJ9...
+    [PASS] Login and Retrieve Token
+----------------------------------------
+[:] Testing: Access Protected Endpoint (/api/reader/info)
+    Access Granted. User: 
+    [PASS] Access Protected Endpoint (/api/reader/info)
+----------------------------------------
+[:] Testing: Access with Invalid Token (Expect Failure)
+    [SUCCESS] Server rejected invalid token with 401.
+    [PASS] Access with Invalid Token (Expect Failure)
+----------------------------------------
